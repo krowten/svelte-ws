@@ -1,6 +1,7 @@
 name: Release
 
-# Publishes to npm when a `v*` tag is pushed. The tag must match `version` in package.json.
+# Stages a release on npm when a `v*` tag is pushed; a maintainer then approves it on
+# npmjs.com (Staged Packages) with 2FA. The tag must match `version` in package.json.
 on:
   push:
     tags: ['v*']
@@ -31,6 +32,8 @@ jobs:
       - run: bunx playwright install chromium webkit
       # the tag may point at a commit CI never ran on, and `prepublishOnly` has no e2e
       - run: bun run test:e2e
-      - run: npm publish --provenance --access public
+      # staged, not published: the token can't publish directly (stage-only), and a release
+      # goes live only after a maintainer approves it with 2FA
+      - run: npm stage publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
