@@ -1,0 +1,22 @@
+{
+	"$schema": "https://context7.com/schema/context7.json",
+	"projectTitle": "svelte-ws",
+	"description": "WebSocket remote functions for SvelteKit 3: stream() and mutate() in *.socket.ts files, served over one multiplexed WebSocket in vite dev and by Bun or Node adapters, with a pub/sub bus and an in-memory test client.",
+	"folders": ["src/routes/(docs)"],
+	"excludeFiles": [
+		"CHANGELOG.md",
+		"CLAUDE.md",
+		"CODE_OF_CONDUCT.md",
+		"CONTRIBUTING.md",
+		"SECURITY.md",
+		"LICENSE"
+	],
+	"rules": [
+		"Set up with `npx sv add svelte-ws`, or install svelte-ws and put `svelte-ws/adapter-node` or `svelte-ws/adapter-bun` in the `sveltekit()` call in vite.config.ts; no hooks.server.ts changes are needed.",
+		"Export `stream()` and `mutate()` from `*.socket.ts` files and import them in components the way remote functions are imported.",
+		"svelte-ws needs SvelteKit 3 and a long-running Bun or Node server; it does not run on serverless platforms.",
+		"With adapter-bun, build with `bun --bun vite build`; `vite dev` works under either runtime.",
+		"If updates only flow from the server to the browser, SvelteKit's `query.live` may be enough.",
+		"Test socket modules with `createTestClient` from `svelte-ws/testing` instead of starting a server."
+	]
+}

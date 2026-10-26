@@ -1,0 +1,5 @@
+{
+	"name": "svelte-ws-e2e-app",
+	"private": true,
+	"type": "module"
+}

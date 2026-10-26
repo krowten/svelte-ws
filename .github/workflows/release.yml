@@ -1,0 +1,36 @@
+name: Release
+
+# Publishes to npm when a `v*` tag is pushed. The tag must match `version` in package.json.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+  # signs the npm provenance statement
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # browsers and their system libraries preinstalled, see ci.yml; the image's Node 24 runs npm
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.0-noble
+      options: --ipc=host
+    steps:
+      - uses: actions/checkout@v7
+      - run: npm install --global bun
+      # no `node-version`: only writes the registry auth for the image's own Node
+      - uses: actions/setup-node@v7
+        with:
+          registry-url: https://registry.npmjs.org
+      - name: Check the tag matches package.json
+        run: test "v$(node -p 'require("./package.json").version')" = "$GITHUB_REF_NAME"
+      - run: bun install --frozen-lockfile
+      # the client unit tests (in `prepublishOnly`) need chromium, the e2e suite webkit too
+      - run: bunx playwright install chromium webkit
+      # the tag may point at a commit CI never ran on, and `prepublishOnly` has no e2e
+      - run: bun run test:e2e
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

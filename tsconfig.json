@@ -1,0 +1,10 @@
+{
+	"extends": "$app/tsconfig",
+	"compilerOptions": {
+		"sourceMap": true,
+		"strict": true
+	},
+	"include": ["src/**/*.js", "src/**/*.ts", "src/**/*.svelte", "vite.config.ts"],
+	// a verbatim copy of @sveltejs/adapter-bun, type-checked upstream (see its UPSTREAM.md)
+	"exclude": ["src/lib/socket/adapter/bun/upstream"]
+}

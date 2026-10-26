@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# a newer push to the same branch or PR makes the running checks moot
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
+      - run: bun run check
+
+  unit:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # the whole range `engines.node` claims: maintenance LTS and active LTS
+        node-version: [22, 24]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: bun install --frozen-lockfile
+      # the client tests need a browser and run in the `browser` job
+      - run: bun run test:unit -- --run --project server
+      # builds dist, then typechecks it the way a consumer would
+      - run: bun run package
+      - run: bun run check:e2e
+
+  # The Playwright image ships the browsers with their system libraries, which
+  # `playwright install --with-deps` would otherwise pull through apt on every run: minutes
+  # on a good day, close to an hour on a bad one.
+  # shortcut: the tag is bumped by hand with @playwright/test; a mismatch only costs the
+  # `playwright install` below a browser download
+  browser:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.0-noble
+      options: --ipc=host
+    steps:
+      - uses: actions/checkout@v7
+      # setup-bun needs unzip, which the image lacks; npm brings the same binary
+      - run: npm install --global bun
+      - run: bun install --frozen-lockfile
+      - run: bunx playwright install chromium
+      # the client tests run in a real browser (vitest browser mode)
+      - run: bun run test:unit -- --run --project client
+
+  e2e:
+    runs-on: ubuntu-latest
+    # same image as `browser`; its Node 24 runs the Node adapter's server
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.0-noble
+      options: --ipc=host
+    steps:
+      - uses: actions/checkout@v7
+      - run: npm install --global bun
+      - run: bun install --frozen-lockfile
+      - run: bun run package
+      # the fixture consumes the package by name through a symlink, not a file: snapshot
+      - run: node e2e/link-package.mjs
+      - run: bunx playwright install chromium webkit
+      - run: bunx playwright test -c e2e/playwright.config.ts
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  # the published artifact, not the working tree: `files`, `exports` and the emitted
+  # import specifiers only meet reality once something installs the tarball by name
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: bun install --frozen-lockfile
+      - run: bun run smoke:pack
+      # exports, files and types as npm and TypeScript see them (publint, arethetypeswrong)
+      - run: bun run lint:package

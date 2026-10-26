@@ -1,0 +1,14 @@
+{
+	"extends": "$app/tsconfig",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"moduleResolution": "bundler"
+	},
+	// the generated base config has no `include`, which would pull in every file under the root
+	"include": ["src/**/*.js", "src/**/*.ts", "src/**/*.svelte", "vite.config.ts"]
+}

@@ -1,0 +1,37 @@
+node_modules
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+/dist/
+/e2e/app/.svelte-kit
+/e2e/app/build-bun
+/e2e/app/build-node
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Playwright
+test-results
+playwright-report
+.playwright-mcp
+
+# Machine-local files — never part of the repo, on any machine
+.claude/settings.local.json
+CLAUDE.local.md
+TODO.md

@@ -1,0 +1,176 @@
+{
+	"name": "svelte-ws",
+	"version": "0.1.0",
+	"description": "WebSocket remote functions for SvelteKit: realtime streams and mutations in *.socket.ts over one multiplexed WebSocket. Works in vite dev; Bun and Node adapters, a pub/sub bus with a Redis recipe.",
+	"keywords": [
+		"sv-add",
+		"svelte",
+		"sveltekit",
+		"svelte5",
+		"websocket",
+		"websockets",
+		"sveltekit-websocket",
+		"realtime",
+		"real-time",
+		"rpc",
+		"remote-functions",
+		"pubsub",
+		"pub-sub",
+		"redis",
+		"bun",
+		"node",
+		"sveltekit-adapter",
+		"vite-plugin",
+		"standard-schema",
+		"multiplexing",
+		"streaming"
+	],
+	"license": "MIT",
+	"author": {
+		"name": "krowten",
+		"email": "me@krowten.dev",
+		"url": "https://github.com/krowten"
+	},
+	"homepage": "https://krowten.github.io/svelte-ws",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/krowten/svelte-ws.git"
+	},
+	"bugs": {
+		"url": "https://github.com/krowten/svelte-ws/issues"
+	},
+	"type": "module",
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./client": {
+			"types": "./dist/client.svelte.d.ts",
+			"svelte": "./dist/client.svelte.js",
+			"default": "./dist/client.svelte.js"
+		},
+		"./pubsub": {
+			"types": "./dist/pubsub.d.ts",
+			"default": "./dist/pubsub.js"
+		},
+		"./config": {
+			"types": "./dist/config.d.ts",
+			"default": "./dist/config.js"
+		},
+		"./testing": {
+			"types": "./dist/testing.d.ts",
+			"default": "./dist/testing.js"
+		},
+		"./vite": {
+			"types": "./dist/vite.d.ts",
+			"default": "./dist/vite.js"
+		},
+		"./adapter-bun": {
+			"types": "./dist/adapter/bun.d.ts",
+			"default": "./dist/adapter/bun.js"
+		},
+		"./adapter-node": {
+			"types": "./dist/adapter/node.d.ts",
+			"default": "./dist/adapter/node.js"
+		},
+		"./sv": {
+			"types": "./dist/sv.d.ts",
+			"default": "./dist/sv.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist",
+		"LICENSE"
+	],
+	"sideEffects": false,
+	"engines": {
+		"bun": ">=1.4",
+		"node": ">=22.17"
+	},
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write .",
+		"test:unit": "vitest",
+		"test": "npm run test:unit -- --run && npm run test:e2e",
+		"test:e2e": "bun run package && node e2e/link-package.mjs && playwright test -c e2e/playwright.config.ts",
+		"package": "svelte-package -i src/lib/socket -o dist && rm -rf dist/test-fixtures dist/*.spec.* dist/**/*.spec.* dist/adapter/bun/UPSTREAM.svelte",
+		"smoke:pack": "node scripts/smoke-pack.mjs",
+		"lint:package": "publint --strict && npm_config_dry_run=false attw --pack . --profile esm-only",
+		"prepublishOnly": "bun run lint && bun run check && bun run test:unit -- --run && bun run smoke:pack && bun run lint:package",
+		"prepack": "bun run package",
+		"check:e2e": "node e2e/link-package.mjs && cd e2e/app && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
+	},
+	"peerDependencies": {
+		"@sveltejs/kit": "^3.0.0",
+		"svelte": "^5.0.0",
+		"sv": "^1.0.0",
+		"vite": ">=6"
+	},
+	"peerDependenciesMeta": {
+		"sv": {
+			"optional": true
+		}
+	},
+	"dependencies": {
+		"@standard-schema/spec": "^1.1.0",
+		"@sveltejs/adapter-node": "^6.0.0",
+		"ws": "^8.22.0"
+	},
+	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.18.5",
+		"@eslint/js": "^10.0.1",
+		"@orama/orama": "^3.1.18",
+		"@playwright/test": "^1.64.1",
+		"@sveltejs/adapter-static": "^4.0.0",
+		"@sveltejs/kit": "^3.0.1",
+		"@sveltejs/package": "^3.0.0",
+		"@sveltejs/sv-utils": "^1.0.2",
+		"@sveltejs/vite-plugin-svelte": "^7.3.1",
+		"@tailwindcss/forms": "^0.5.11",
+		"@tailwindcss/typography": "^0.5.20",
+		"@tailwindcss/vite": "^4.3.3",
+		"@types/bun": "^1.4.3",
+		"@types/node": "^22",
+		"@types/ws": "^8.18.2",
+		"@vitest/browser-playwright": "^5.0.4",
+		"eslint": "^10.12.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-svelte": "^3.23.1",
+		"globals": "^17.13.0",
+		"mdsvex": "^0.12.8",
+		"playwright": "^1.64.1",
+		"prettier": "^3.9.10",
+		"prettier-plugin-svelte": "^4.1.1",
+		"prettier-plugin-tailwindcss": "^0.8.1",
+		"publint": "^0.3.25",
+		"rehype-slug": "^6.0.0",
+		"shiki": "^4.5.0",
+		"sv": "^1.1.1",
+		"svelte": "^5.57.2",
+		"svelte-check": "^4.7.6",
+		"tailwindcss": "^4.3.3",
+		"typescript": "^6",
+		"typescript-eslint": "^8.71.2",
+		"valibot": "^1.5.0",
+		"vite": "^8.3.4",
+		"vitest": "^5.0.4",
+		"vitest-browser-svelte": "^3.1.0"
+	},
+	"workspaces": [
+		"e2e/app"
+	],
+	"imports": {
+		"#lib/*": "./src/lib/*"
+	}
+}
