@@ -13,7 +13,7 @@ Where SvelteKit's own `query.live` streams server-to-client over HTTP, svelte-ws
 WebSocket open in both directions: mutations travel on it too, handlers see per-connection
 data from an `upgrade` hook, and a shared pub/sub bus (in-memory or Redis) fans messages out.
 
-📖 **[Documentation](https://krowten.github.io/svelte-ws)**: getting started, streams and
+📖 **[Documentation](https://krowten.github.io/svelte-ws/)**: getting started, streams and
 mutations, the pub/sub bus, `socket.config.ts`, adapters, Redis, deployment.
 
 ## Quick start

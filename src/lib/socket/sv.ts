@@ -57,7 +57,7 @@ const options = defineAddonOptions()
 export default defineAddon({
 	id: 'svelte-ws',
 	shortDescription: 'WebSocket remote functions',
-	homepage: 'https://krowten.github.io/svelte-ws',
+	homepage: 'https://krowten.github.io/svelte-ws/',
 	options,
 
 	setup: ({ isKit, unsupported, dependencyVersion }) => {
