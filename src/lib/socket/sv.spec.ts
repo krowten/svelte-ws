@@ -51,8 +51,9 @@ describe('sv add svelte-ws', () => {
 		expect(pkg.dependencies['svelte-ws']).toMatch(/^\^\d/);
 		expect(pkg.devDependencies['@sveltejs/adapter-node']).toBeUndefined();
 		expect(pkg.scripts.build).toBe('vite build');
-		expect(app.read('src/routes/ticker/ticker.socket.ts')).toContain('stream(');
-		expect(app.exists('src/routes/ticker/+page.svelte')).toBe(true);
+		expect(pkg.dependencies.valibot).toMatch(/^\^1/);
+		expect(app.read('src/routes/socket/board.socket.ts')).toContain('publish(');
+		expect(app.read('src/routes/socket/+page.svelte')).toContain('<script lang="ts">');
 	});
 
 	it('moves another adapter to svelte-ws/adapter-bun with a Bun build and no demo', async () => {
@@ -64,7 +65,8 @@ describe('sv add svelte-ws', () => {
 		const pkg = JSON.parse(app.read('package.json'));
 		expect(pkg.devDependencies['@sveltejs/adapter-auto']).toBeUndefined();
 		expect(pkg.scripts.build).toBe('bun --bun vite build');
-		expect(app.exists('src/routes/ticker')).toBe(false);
+		expect(pkg.dependencies?.valibot).toBeUndefined();
+		expect(app.exists('src/routes/socket')).toBe(false);
 
 		await run(app.cwd, { adapter: 'bun', demo: false });
 		expect(JSON.parse(app.read('package.json')).scripts.build).toBe('bun --bun vite build');

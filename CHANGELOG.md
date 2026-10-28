@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [SemVer](https://semver.org) once the package leaves 0.x.
 
+## Unreleased
+
+- The `sv add svelte-ws` demo is now a message board at `/socket` that every open tab
+  shares through `publish` and `subscribe`, instead of a clock at `/ticker`. It adds
+  `valibot` to the project if it isn't there yet.
+
 ## 0.1.0 - 2026-10-26
 
 First release.

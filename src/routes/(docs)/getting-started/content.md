@@ -21,7 +21,8 @@ It asks which runtime will serve the app and whether to add a demo page, then:
   `@sveltejs/adapter-bun` keeps the adapter's options; from any other adapter it starts
   from the defaults;
 - with Bun, changes the `build` script to `bun --bun vite build` (see [Run it](#run-it));
-- with the demo, adds a live clock at `src/routes/ticker`.
+- with the demo, adds a message board at `src/routes/socket` that every open tab shares
+  through `publish` and `subscribe`, plus `valibot` to validate what gets posted.
 
 To skip the prompts, pass the answers inline:
 `npx sv add svelte-ws=adapter:bun+demo:no`. The sections below are the same setup done by
