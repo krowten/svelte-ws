@@ -1,8 +1,11 @@
 <script lang="ts">
+	import type { Orama } from '@orama/orama';
+	import type { DocSlug } from '#lib/nav.js';
+
 	import { resolve } from '$app/paths';
 	import { goto } from '$app/navigation';
-	import { create, insertMultiple, search, type Orama } from '@orama/orama';
-	import { flat, type DocSlug } from '#lib/nav.js';
+	import { create, insertMultiple, search } from '@orama/orama';
+	import { flat } from '#lib/nav.js';
 
 	// Raw markdown of every docs page, loaded lazily when the modal first opens. Rooted at
 	// the project so the `(docs)` route group's parentheses can't be read as a glob group.

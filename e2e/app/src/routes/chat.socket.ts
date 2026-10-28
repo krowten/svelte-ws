@@ -1,3 +1,5 @@
+import type { ChatMessage } from './chat-shared';
+
 import { stream, mutate } from 'svelte-ws';
 import { publish, subscribe } from 'svelte-ws/pubsub';
 import {
@@ -5,8 +7,7 @@ import {
 	messageSchema,
 	newMessage,
 	roomChannel,
-	roomSchema,
-	type ChatMessage
+	roomSchema
 } from './chat-shared';
 
 /**

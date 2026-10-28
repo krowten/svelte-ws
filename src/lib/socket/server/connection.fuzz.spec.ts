@@ -19,13 +19,13 @@
  *   that is still in use (4409); after that the client connects again and the run goes on.
  */
 import type { AnyDescriptor } from '../types.js';
-import type { ConnectionSocket } from './connection.js';
+import type { ConnectionSocket, SocketConnection } from './connection.js';
 
 import { afterAll, beforeAll, expect, inject, test, vi } from 'vitest';
 import * as v from 'valibot';
 import { createInMemoryPubSub } from '../pubsub.js';
 import { CLOSE_DUPLICATE_ID } from '../protocol.js';
-import { createSocketConnection, type SocketConnection } from './connection.js';
+import { createSocketConnection } from './connection.js';
 import { mutate, stream } from './define.js';
 
 const fuzz = inject('fuzz');

@@ -1,7 +1,8 @@
+import type { ClientMessage, ServerMessage, StreamMessage } from './protocol.js';
+
 import { describe, expect, it, vi } from 'vitest';
 import { createMutate, createStream, isSocketError } from './client.svelte.js';
 import { PING_INTERVAL_MS, PONG_TIMEOUT_MS } from './protocol.js';
-import type { ClientMessage, ServerMessage, StreamMessage } from './protocol.js';
 
 /**
  * Fake browser WebSocket capturing outgoing frames; tests drive the server side by calling

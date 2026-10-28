@@ -1,8 +1,9 @@
 import type { IncomingMessage } from 'node:http';
-
 import type { Duplex } from 'node:stream';
-import { DEFAULT_LIMITS, sameOriginCheck, type SocketServerHooks } from '../config.js';
+import type { SocketServerHooks } from '../config.js';
 import type { SocketLike, SocketWebSocketHandler, WsData } from './ws-handler.js';
+
+import { DEFAULT_LIMITS, sameOriginCheck } from '../config.js';
 
 /**
  * Anything with an `upgrade` event: `node:http`/`node:https`/`http2` servers all qualify,

@@ -1,12 +1,15 @@
+import type { Plugin, ViteDevServer } from 'vite';
+import type { InitCleanup, SocketServerHooks } from './config.js';
+import type { ModuleExports } from './server/registry.js';
+
 import { existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { Plugin, ViteDevServer } from 'vite';
 import { ENDPOINT_PATH } from './protocol.js';
-import { resolveHooks, type InitCleanup, type SocketServerHooks } from './config.js';
+import { resolveHooks } from './config.js';
 import { attachNodeWebSocket } from './server/node-ws.js';
 import { createWebSocketHandler } from './server/ws-handler.js';
-import { createResolver, type ModuleExports } from './server/registry.js';
+import { createResolver } from './server/registry.js';
 import { configureDefaultPubSub } from './pubsub.js';
 
 // set by Vitest: its server-side tests import socket modules for their handlers, not stubs

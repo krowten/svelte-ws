@@ -22,11 +22,16 @@
  * await client.close();
  * ```
  */
-import { parseMessage, type ClientMessage, type ServerMessage } from './protocol.js';
+import type { ClientMessage, ServerMessage } from './protocol.js';
 import type { SocketLimits, SocketServerHooks } from './config.js';
-import { createSocketConnection, type SocketConnection } from './server/connection.js';
-import { createResolver, type ModuleExports } from './server/registry.js';
-import { fromIssues, type SocketError } from './error.js';
+import type { SocketConnection } from './server/connection.js';
+import type { ModuleExports } from './server/registry.js';
+import type { SocketError } from './error.js';
+
+import { parseMessage } from './protocol.js';
+import { createSocketConnection } from './server/connection.js';
+import { createResolver } from './server/registry.js';
+import { fromIssues } from './error.js';
 
 export type TestClientOptions = {
 	/**

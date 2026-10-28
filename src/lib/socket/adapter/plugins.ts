@@ -1,7 +1,8 @@
 import type { Adapter, AdapterViteConfig } from '@sveltejs/kit';
 import type { Plugin } from 'vite';
+import type { SocketPluginOptions } from '../vite.js';
 
-import { sveltekitSocket, type SocketPluginOptions } from '../vite.js';
+import { sveltekitSocket } from '../vite.js';
 
 type ViteOption = Adapter['vite'];
 type PluginList = NonNullable<Plugin | Plugin[] | false | null | undefined>;

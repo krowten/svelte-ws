@@ -1,8 +1,9 @@
 <script lang="ts">
+	import type { ChatMessage } from './chat-shared';
+
 	import { untrack } from 'svelte';
 	import { messages, send, whoami } from './chat.socket';
 	import { sendViaCommand } from './chat.remote';
-	import type { ChatMessage } from './chat-shared';
 
 	let { room }: { room: string } = $props();
 

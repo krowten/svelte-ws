@@ -3,8 +3,9 @@
 	ties the subscription to this component's lifetime. Hands the handle back to the test.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
 	import type { Stream, StreamFn } from '../types.js';
+
+	import { untrack } from 'svelte';
 
 	type Props = {
 		stream: StreamFn<unknown, unknown>;

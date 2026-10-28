@@ -1,3 +1,7 @@
+import type { ConnectionSocket } from './connection.js';
+import type { AnyDescriptor } from '../types.js';
+import type { ServerMessage } from '../protocol.js';
+
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import * as v from 'valibot';
 import {
@@ -8,12 +12,11 @@ import {
 	subscribe as busSubscribe,
 	configureDefaultPubSub
 } from '../pubsub.js';
-import { createSocketConnection, type ConnectionSocket } from './connection.js';
+import { createSocketConnection } from './connection.js';
 import { stream, mutate } from './define.js';
 import { createResolver } from './registry.js';
 import { validate, isValidationError, socketError } from './validate.js';
-import type { AnyDescriptor } from '../types.js';
-import { parseMessage, type ServerMessage } from '../protocol.js';
+import { parseMessage } from '../protocol.js';
 
 const tick = () => new Promise((r) => setTimeout(r, 0));
 

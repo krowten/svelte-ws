@@ -1,16 +1,18 @@
+import type { Server } from 'node:http';
+import type { AddressInfo } from 'node:net';
+import type { AnyDescriptor } from '../types.js';
+import type { SocketServerHooks } from '../config.js';
+import type { ServerMessage } from '../protocol.js';
+
 import { afterEach, describe, expect, it } from 'vitest';
-import { createServer, type Server } from 'node:http';
+import { createServer } from 'node:http';
 import { connect as connectRaw } from 'node:net';
 import { once } from 'node:events';
-import type { AddressInfo } from 'node:net';
 import { WebSocket } from 'ws';
 import * as v from 'valibot';
 import { attachNodeWebSocket } from './node-ws.js';
 import { createWebSocketHandler } from './ws-handler.js';
 import { mutate, stream } from './define.js';
-import type { AnyDescriptor } from '../types.js';
-import type { SocketServerHooks } from '../config.js';
-import type { ServerMessage } from '../protocol.js';
 
 const ENDPOINT = '/_events';
 

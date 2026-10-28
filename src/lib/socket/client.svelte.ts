@@ -1,14 +1,9 @@
+import type { ClientMessage, ServerMessage } from './protocol.js';
+import type { ConnectionStatus, Issue, MutateFn, StreamFn, Stream } from './types.js';
+
 import { onDestroy } from 'svelte';
 import { SvelteMap, SvelteSet } from 'svelte/reactivity';
-import {
-	ENDPOINT_PATH,
-	PING_INTERVAL_MS,
-	PONG_TIMEOUT_MS,
-	parseMessage,
-	type ClientMessage,
-	type ServerMessage
-} from './protocol.js';
-import type { ConnectionStatus, Issue, MutateFn, StreamFn, Stream } from './types.js';
+import { ENDPOINT_PATH, PING_INTERVAL_MS, PONG_TIMEOUT_MS, parseMessage } from './protocol.js';
 import { fromIssues } from './error.js';
 
 const browser = typeof window !== 'undefined';

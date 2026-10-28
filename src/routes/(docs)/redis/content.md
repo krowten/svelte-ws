@@ -19,8 +19,10 @@ identical to the default engine.
 
 ```ts
 // src/lib/server/redis-pubsub.ts
+import type { PubSubEngine, SubscribeOptions } from 'svelte-ws/pubsub';
+
 import { RedisClient } from 'bun';
-import { createInMemoryPubSub, type PubSubEngine, type SubscribeOptions } from 'svelte-ws/pubsub';
+import { createInMemoryPubSub } from 'svelte-ws/pubsub';
 
 export function createRedisPubSub(url?: string): PubSubEngine {
 	const publisher = new RedisClient(url);

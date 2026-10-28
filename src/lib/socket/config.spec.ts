@@ -1,10 +1,7 @@
+import type { SocketServerHooks } from './config.js';
+
 import { describe, expect, it } from 'vitest';
-import {
-	defineSocketServer,
-	resolveHooks,
-	sameOriginCheck,
-	type SocketServerHooks
-} from './config.js';
+import { defineSocketServer, resolveHooks, sameOriginCheck } from './config.js';
 
 describe('socket server config', () => {
 	it('defineSocketServer is an identity helper', () => {

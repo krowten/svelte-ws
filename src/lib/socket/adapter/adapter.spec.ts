@@ -1,8 +1,9 @@
+import type { Adapter, AdapterViteConfig, Builder } from '@sveltejs/kit';
+import type { Plugin } from 'vite';
+
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import path from 'node:path';
 import { writeFileSync } from 'node:fs';
-import type { Adapter, AdapterViteConfig, Builder } from '@sveltejs/kit';
-import type { Plugin } from 'vite';
 
 // adapter-node's own build is covered by the e2e suite; here it only has to be callable
 const officialAdapt = vi.fn();

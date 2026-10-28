@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { DocSlug } from '#lib/nav.js';
+
 	import { resolve } from '$app/paths';
 	import Hero from '#lib/snippets/hero.md';
 	import Adapters from '#lib/snippets/adapters.md';
@@ -13,7 +15,6 @@
 		SITE_DESCRIPTION
 	} from '#lib/site.js';
 	import PageMeta from '#lib/components/PageMeta.svelte';
-	import type { DocSlug } from '#lib/nav.js';
 	import { version } from '../../package.json';
 
 	const jsonLd = [

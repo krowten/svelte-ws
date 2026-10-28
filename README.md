@@ -1,5 +1,9 @@
 # svelte-ws
 
+[![npm](https://img.shields.io/npm/v/svelte-ws)](https://www.npmjs.com/package/svelte-ws)
+[![CI](https://github.com/krowten/svelte-ws/actions/workflows/ci.yml/badge.svg)](https://github.com/krowten/svelte-ws/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/npm/l/svelte-ws)](LICENSE)
+
 WebSocket remote functions for SvelteKit. Write `*.socket.ts` files with `stream()` and
 `mutate()`, the way you write `*.remote.ts` with `query` and `command`, and get realtime data
 over one multiplexed WebSocket, in `vite dev` and from a standalone Bun or Node server.

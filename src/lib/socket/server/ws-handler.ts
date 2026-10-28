@@ -1,9 +1,8 @@
-import {
-	createSocketConnection,
-	type SocketConnection,
-	type ResolveDescriptor
-} from './connection.js';
-import { DEFAULT_LIMITS, type SocketLimits, type SocketServerHooks } from '../config.js';
+import type { SocketConnection, ResolveDescriptor } from './connection.js';
+import type { SocketLimits, SocketServerHooks } from '../config.js';
+
+import { createSocketConnection } from './connection.js';
+import { DEFAULT_LIMITS } from '../config.js';
 
 /** Per-connection data carried on `ws.data` (set at upgrade time). */
 export type WsData = {

@@ -1,15 +1,15 @@
+import type { ClientMessage, Issue, ServerMessage } from '../protocol.js';
+import type { AnyDescriptor, SocketContext } from '../types.js';
+import type { SocketLimits, SocketServerHooks } from '../config.js';
+
 import {
 	CLOSE_DUPLICATE_ID,
 	CLOSE_PONG_TIMEOUT,
 	PING_INTERVAL_MS,
 	PONG_TIMEOUT_MS,
-	parseMessage,
-	type ClientMessage,
-	type Issue,
-	type ServerMessage
+	parseMessage
 } from '../protocol.js';
-import type { AnyDescriptor, SocketContext } from '../types.js';
-import { DEFAULT_LIMITS, type SocketLimits, type SocketServerHooks } from '../config.js';
+import { DEFAULT_LIMITS } from '../config.js';
 import { isSocketError } from '../error.js';
 import { runOperation } from './operation.js';
 import { isValidationError, toIssues, validate } from './validate.js';
